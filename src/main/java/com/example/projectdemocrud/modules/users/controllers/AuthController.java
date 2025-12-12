@@ -1,17 +1,22 @@
 package com.example.projectdemocrud.modules.users.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.projectdemocrud.modules.users.dtos.request.LoginRequest;
+import com.example.projectdemocrud.modules.users.dtos.response.LoginResponse;
+import com.example.projectdemocrud.modules.users.services.impl.UserService;
+import com.example.projectdemocrud.modules.users.services.interfaces.UserServiceInterface;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("v1/auth")
 public class AuthController {
-
-    public AuthController(){
-
+    private final UserServiceInterface userService;
+    public AuthController(UserServiceInterface userService) {
+        this.userService = userService;
     }
-    @PostMapping("test")
-    public
+    @PostMapping("login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
+        LoginResponse auth = userService.login(request);
+        return ResponseEntity.ok(auth);
+    }
 }
