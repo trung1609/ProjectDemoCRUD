@@ -1,6 +1,7 @@
 package com.example.projectdemocrud.database.seeder;
 
 import com.example.projectdemocrud.modules.users.entites.User;
+import com.example.projectdemocrud.modules.users.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,13 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Transactional
     @Override
     public void run(String... args) throws Exception {
-        String passwordEncode = passwordEncoder.encode("password");
+
 //        entityManager.createNativeQuery("INSERT into users(name,email,password, user_catalogue_id, phone,address) VALUES (?,? , ?, ?, ?, ?)")
 //                .setParameter(1,"Test")
 //                .setParameter(2,"test@gmail.com")
@@ -34,14 +38,35 @@ public class DatabaseSeeder implements CommandLineRunner {
 //            System.out.println("Password: " + passwordEncode);
 //        }
 
-        User user = new User();
-        user.setName("Test");
-        user.setEmail("test@gmail.com");
-        user.setPassword(passwordEncode);
-        user.setPhone("0123456789");
-        user.setAddress("Test Address");
-        user.setUser_catalogue_id(1L);
-        entityManager.persist(user);
+//        User user = new User();
+//        user.setName("Test");
+//        user.setEmail("test@gmail.com");
+//        user.setPassword(passwordEncode);
+//        user.setPhone("0123456789");
+//        user.setAddress("Test Address");
+//        user.setUser_catalogue_id(1L);
+//        entityManager.persist(user);
+
+//        User user = new User();
+//        user.setName("Test");
+//        user.setEmail("test@gmail.com");
+//        user.setPassword(passwordEncode);
+//        user.setPhone("0123456789");
+//        user.setAddress("Test Address");
+//        user.setUser_catalogue_id(1L);
+//        userRepository.save(user);
+
+        if(isTableEmpty()) {
+            String passwordEncode = passwordEncoder.encode("password");
+            User user = new User();
+            user.setName("Trung");
+            user.setEmail("trung@gmail.com");
+            user.setPassword(passwordEncode);
+            user.setUser_catalogue_id(1L);
+            user.setPhone("0123456789");
+            user.setAddress("Ha Noi");
+            userRepository.save(user);
+        }
     }
 
     private boolean isTableEmpty() {

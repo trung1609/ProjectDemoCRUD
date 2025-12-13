@@ -1,7 +1,14 @@
-package com.example.projectdemocrud.modules.users.dtos.request;
+package com.example.projectdemocrud.modules.users.request;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
+    @NotBlank(message = "Email khong duoc de trong")
+    @Email(message = "Email khong dung dinh dang")
     private String email;
+
+
     private String password;
     public String getEmail() {
         return email;
